@@ -1,0 +1,99 @@
+<html>
+<head>
+	<title>スクフェス レベルアップ計算</title>
+	<script type="text/javascript">
+		function n(a) {
+			return document.getElementById(a).value;
+		}
+	
+		function calc() {
+			var area = '';
+			var mapCount = 6;
+
+			var zan = parseInt(n("zan"));
+			var map = new Array(mapCount);
+
+			for (i = 0; i < mapCount; i++) {
+				map[i] = new Array(3);
+				map[i][0] = parseInt(n("exp_" + (i + 1)));
+				map[i][1] = parseInt(n("lp_" + (i + 1)));
+				map[i][2] = 0;
+			}
+
+			i = 0;
+			while (zan > map[mapCount-1][0]) {
+				if (zan > map[i][0]) {
+					zan -= map[i][0];
+					map[i][2]++;
+				} else {
+					i++;
+				}
+
+				if (i == mapCount) break;
+			}
+
+			var totalHour = 0;
+			for (i = 0; i < mapCount; i++) {
+				hour = (map[i][2] * map[i][1] / 10);
+				area += "LP:" + map[i][1] + ' (Exp:' + map[
+					i][0] + ') を ' + map[i][2] + "回 ";
+				area += hour + "時間";
+				area += "<br>";
+
+				totalHour += hour;
+			}
+			area += "端数の経験値は" + zan + "です。<br>";
+			area += "自然回復の場合は " + totalHour + "時間弱必要です。";
+
+
+			document.getElementById('area').innerHTML = area;
+		}
+		
+		function debug(hoge) {
+			return "[debug] " + hoge + "<br>";
+		}
+	</script>
+</head>
+<body>
+<h1>ラブライブ！スクールアイドルフェスティバル レベルアップ計算</h1>
+残り経験値<br>
+<input type="text" id="zan" value="" size="8">
+<input type="button" onclick="calc()" value="計算">
+<div id="area"></div>
+<table border="1">
+	<tr>
+		<td>Exp</td>
+		<td>LP</td>
+	</tr>
+	<tr>
+		<td><input type="text" id="exp_1" value="83" size="5"></td>
+		<td><input type="text" id="lp_1" value="25" size="5"></td>
+	</tr>
+	<tr>
+		<td><input type="text" id="exp_2" value="46" size="5"></td>
+		<td><input type="text" id="lp_2" value="15" size="5"></td>
+	</tr>
+	<tr>
+		<td><input type="text" id="exp_3" value="42" size="5"></td>
+		<td><input type="text" id="lp_3" value="14" size="5"></td>
+	</tr>
+	<tr>
+		<td><input type="text" id="exp_4" value="35" size="5"></td>
+		<td><input type="text" id="lp_4" value="12" size="5"></td>
+	</tr>
+	<tr>
+		<td><input type="text" id="exp_5" value="29" size="5"></td>
+		<td><input type="text" id="lp_5" value="10" size="5"></td>
+	</tr>
+		<tr>
+		<td><input type="text" id="exp_6" value="24" size="5"></td>
+		<td><input type="text" id="lp_6" value="9" size="5"></td>
+	</tr>
+
+</table>
+
+<hr>
+難易度ハードのLPと経験値に設定されています。<br>
+
+</body>
+</html>
